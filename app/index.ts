@@ -22,10 +22,16 @@ app.use(express.urlencoded({ extended: false }));
 
 // CQRS
 import { commandBus } from './cqrs';
+import ChangeUserPassword from './user/commands/ChangeUserPassword';
 import CreateUser from './user/commands/CreateUser';
+import DeleteUser from './user/commands/DeleteUser';
+import UpdateUser from './user/commands/UpdateUser';
 import CreateUserHandler from './user/handlers/CreateUserHandler';
 
-commandBus.register(CreateUser.name, new CreateUserHandler());
+commandBus.register(CreateUser, CreateUserHandler);
+commandBus.register(UpdateUser, CreateUserHandler);
+commandBus.register(DeleteUser, CreateUserHandler);
+commandBus.register(ChangeUserPassword, CreateUserHandler);
 
 // END CQRS
 

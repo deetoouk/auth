@@ -1,10 +1,13 @@
 import { ICommand, ICommandHandler } from './contracts';
 
 class CommandBuss {
-  private binds: { [command: string]: ICommandHandler } = {};
+  private binds: { [command: string]: new () => ICommandHandler } = {};
 
-  public register(command: string, handler: ICommandHandler) {
-    this.binds[command] = handler;
+  public register(
+    command: new (...args: any) => ICommand,
+    handler: new () => ICommandHandler,
+  ) {
+    this.binds[command.name] = handler;
   }
 
   public dispatch(command: ICommand) {
@@ -14,14 +17,15 @@ class CommandBuss {
       this.binds,
       command.constructor.name,
     );
-    const handler = this.binds[command.constructor.name];
 
-    handler.handle(command);
+    const handler = new this.binds[command.constructor.name]();
+
+    return handler.handle(command);
   }
 }
 
 export const commandBus = new CommandBuss();
 
 export function dispatch(command: ICommand) {
-  commandBus.dispatch(command);
+  return commandBus.dispatch(command);
 }

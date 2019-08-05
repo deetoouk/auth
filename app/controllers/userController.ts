@@ -8,7 +8,7 @@ export default class UserController {
   }
 
   public static create(req: express.Request, res: express.Response) {
-    dispatch(
+    const response = dispatch(
       new CreateUser(
         req.body.email,
         req.body.password,
@@ -18,6 +18,6 @@ export default class UserController {
       ),
     );
 
-    return res.json({ success: true });
+    return res.json({ success: response });
   }
 }
