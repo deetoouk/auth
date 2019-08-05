@@ -1,4 +1,4 @@
-import { AggregateRootId } from './../cqrs/aggregateRootId';
+import { AggregateRoot } from './../cqrs/aggregateRoot';
 import ChangePassword from './commands/ChangeUserPassword';
 import CreateUser from './commands/CreateUser';
 import DeleteUser from './commands/DeleteUser';
@@ -6,7 +6,7 @@ import UpdateUser from './commands/UpdateUser';
 import UserCreated from './events/UserCreated';
 import UserUpdated from './events/UserUpdated';
 
-export class User extends AggregateRootId {
+export class User extends AggregateRoot {
   protected email: string;
   protected password: string;
   protected firstName: string;

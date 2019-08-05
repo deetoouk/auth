@@ -3,7 +3,7 @@ import { ICommandHandler } from '../../cqrs';
 import CreateUser from '../commands/CreateUser';
 import { User } from './../user';
 
-export default class CreateUserHandler implements ICommandHandler {
+export default class CreateUserHandler implements ICommandHandler<CreateUser> {
   public handle(command: CreateUser) {
     const uuid = uuidv4();
     const user = new User(uuid);

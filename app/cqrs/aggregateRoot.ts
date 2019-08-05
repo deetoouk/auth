@@ -1,12 +1,12 @@
 import { ICommand, IEvent } from '.';
 
-interface IAggregateRootId {
+interface IAggregateRoot {
   handle(command: ICommand): void;
   apply(event: IEvent): void;
 }
 
-export class AggregateRootId implements IAggregateRootId {
-  public static retrieve(aggregateRootId: string): IAggregateRootId {
+export class AggregateRoot implements IAggregateRoot {
+  public static retrieve(aggregateRootId: string): IAggregateRoot {
     const instance = new this(aggregateRootId);
 
     instance.reconstituteFromEvents();

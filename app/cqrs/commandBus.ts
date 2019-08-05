@@ -1,11 +1,11 @@
 import { ICommand, ICommandHandler } from './contracts';
 
 class CommandBuss {
-  private binds: { [command: string]: new () => ICommandHandler } = {};
+  private binds: { [command: string]: new () => ICommandHandler<ICommand> } = {};
 
   public register(
     command: new (...args: any) => ICommand,
-    handler: new () => ICommandHandler,
+    handler: new () => ICommandHandler<ICommand>,
   ) {
     this.binds[command.name] = handler;
   }
